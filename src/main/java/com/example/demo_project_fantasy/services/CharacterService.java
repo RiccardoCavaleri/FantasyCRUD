@@ -11,7 +11,8 @@ public interface CharacterService {
     List<Character> getAllCharacters();
     Optional<Character> getCharacterById(Long id);
     Character createCharacter(Character character);
-    public Character updateCharacter(Long id, Character character);
+    Character updateCharacter(Long id, Character character);
     List<Character> searchCharactersByKeyword(String keyword);
     Optional<Character> deleteCharacterById(Long id);
+
 }

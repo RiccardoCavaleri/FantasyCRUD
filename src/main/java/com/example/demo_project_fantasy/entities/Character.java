@@ -1,11 +1,13 @@
 package com.example.demo_project_fantasy.entities;
-
-
 import jakarta.persistence.*;
+
+
 
 @Entity
 @Table
+
 public class Character {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
