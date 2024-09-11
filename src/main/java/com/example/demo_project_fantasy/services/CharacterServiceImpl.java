@@ -49,7 +49,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<Character> searchCharactersByKeyword(String keyword) {
-        return characterRepository.serchCharacterByNameOrRaceOrClass(keyword);
+        return characterRepository.searchCharacterByNameOrRaceOrClass(keyword);
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/character")
 public class CharacterController {
     @Autowired
@@ -30,13 +30,13 @@ public class CharacterController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/characters/{keyword}")
+    @GetMapping("/characters/search")
     public ResponseEntity<List<Character>> serchCharactersByKeyword(@RequestParam String keyword){
         List<Character> characterList = characterService.searchCharactersByKeyword(keyword);
         return ResponseEntity.ok(characterList);
     }
 
-    @PostMapping("/createNewCharcter")
+    @PostMapping("/createNewCharacter")
     public ResponseEntity<Character> newCharacter(@RequestBody Character newCharacter){
         return ResponseEntity.ok(characterService.createCharacter(newCharacter));
     }
