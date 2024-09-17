@@ -1,6 +1,6 @@
 package com.example.demo_project_fantasy.controllers;
 
-import com.example.demo_project_fantasy.services.CharacterServiceImpl;
+import com.example.demo_project_fantasy.services.CharacterService;
 import com.example.demo_project_fantasy.entities.Character;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/character")
 public class CharacterController {
     @Autowired
-    private CharacterServiceImpl characterService;
+    private CharacterService characterService;
 
     @GetMapping("/characters")
     public ResponseEntity<List<Character>> characterList(){
@@ -32,6 +32,9 @@ public class CharacterController {
     @GetMapping("/characters/search")
     public ResponseEntity<List<Character>> serchCharactersByKeyword(@RequestParam String keyword){
         List<Character> characterList = characterService.searchCharactersByKeyword(keyword);
+        if (characterList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(characterList);
     }
 
@@ -41,10 +44,9 @@ public class CharacterController {
     }
 
     @PutMapping("/modify/{id}")
-    public ResponseEntity<Character> updateCharacter(@PathVariable Long id, @RequestBody Character newCharacter){
-        Optional<Character> characterOptional = characterService.getCharacterById(id);
-        if (characterOptional.isPresent()){
-            Character characterUpdate = characterService.updateCharacter(id, newCharacter);
+    public ResponseEntity<Optional<Character>> updateCharacter(@PathVariable Long id, @RequestBody Character newCharacter){
+        Optional<Character> characterUpdate = characterService.updateCharacter(id, newCharacter);
+        if (characterUpdate.isPresent()){
             return ResponseEntity.ok(characterUpdate);
         }else {
             return ResponseEntity.notFound().build();
